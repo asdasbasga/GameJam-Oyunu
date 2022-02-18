@@ -11,7 +11,7 @@ public class objealma : MonoBehaviour
 
     Rigidbody rbObje;
     public float maxDistance = 20f;
-    public float Max;
+    GameObject cube;
     
 
     // Start is called before the first frame update
@@ -23,56 +23,34 @@ public class objealma : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rbObje)
+        if (Input.GetKeyDown(KeyCode.E)) 
         {
-            
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if(rbObje)
+            if (rbObje)
             {
                 rbObje.isKinematic = false;
                 rbObje = null;
-                rbObje.transform.parent = null;
-                 
-
-
+                cube.transform.parent = null;
             }
             else
             {
-                Collider[] col =  Physics.OverlapSphere(point.position, rangeSpahere,LayerObje);
-                foreach(Collider collider in col){
-                
-                if(col != null)
+                Collider[] cols = Physics.OverlapSphere(point.position, rangeSpahere, LayerObje);
+                foreach (Collider obje in cols)
                 {
-                    rbObje = collider.GetComponent<Rigidbody>();
-                    if(rbObje){
-                        
-                         rbObje.isKinematic = true;
-                         rbObje.transform.position = new Vector3(point.position.x,point.position.y,point.position.z);
-                         rbObje.transform.parent = point.transform;
+                    rbObje = obje.transform.GetComponent<Rigidbody>();
+                    rbObje.isKinematic = true;
+                    
+                    cube = obje.gameObject;
+                    cube.transform.parent = point.transform;
 
-                       
-
-                   
-                    } 
-                }
-                
                 }
             }
 
-            
         }
 
-
-
-        
     }
-    void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected() 
     {
-        if(rangeSpahere  == null)
-        return;
-        Gizmos.DrawSphere(point.position, rangeSpahere);
+        Gizmos.DrawWireSphere(point.position, rangeSpahere);
     }
+}
 
-}
-}
