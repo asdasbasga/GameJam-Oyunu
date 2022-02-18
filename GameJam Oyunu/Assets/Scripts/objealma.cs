@@ -11,6 +11,7 @@ public class objealma : MonoBehaviour
 
     Rigidbody rbObje;
     public float maxDistance = 20f;
+    public float Max;
     
 
     // Start is called before the first frame update
